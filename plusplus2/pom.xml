@@ -1,0 +1,147 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>learning.rasw</groupId>
+		<artifactId>maven102</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>plusplus2</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>output</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>learning.rasw.output.App</mainClass>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>output2</id>
+			<activation>
+				<property>
+					<name>my.profileActive</name>
+					<value>Circle</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>learning.rasw.output.App</mainClass>
+							<arguments>
+								<argument>${my.profileActive}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>fileExistProfile</id>
+			<activation>
+				<!-- <file><exists>${java.home}/../lib/tools.jar</exists>	</file> -->
+				<!-- <file> <missing>${java.home}/../lib/fred.jar</missing> </file> -->
+			</activation>
+			<properties>
+				<!-- <my.prop>Java tools.jar exists!!</my.prop> -->
+				<!-- <my.prop>Java fred.jar NOT exists!!</my.prop> -->
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>learning.rasw.output.App</mainClass>
+							<arguments>
+								<argument>${my.prop}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>jdkExistProfile</id>
+			<!-- <activation> <jdk>1.8</jdk> </activation> -->
+			<!-- <activation> <jdk>[1.5,1.6]</jdk> </activation> -->
+			<properties>
+				<!-- <my.prop>Java jdk 1.8 being used!!</my.prop> -->
+				<!-- <my.prop>Java jdk 1.5 to 1.8 being used!!</my.prop> -->
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>learning.rasw.output.App</mainClass>
+							<arguments>
+								<argument>${my.prop}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>osExistProfile</id>
+			<activation>
+		<!-- 		<os>
+					<family>windows</family>
+				</os> -->
+			</activation>
+			<properties>
+				<my.prop>Running on windows OS!!</my.prop>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>learning.rasw.output.App</mainClass>
+							<arguments>
+								<argument>${my.prop}</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
